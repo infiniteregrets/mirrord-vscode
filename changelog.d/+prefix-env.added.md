@@ -1,0 +1,1 @@
+Allow setting env for `mirrord ext` by prefixing 'MIRRORD_VSC_' in launch.json.
