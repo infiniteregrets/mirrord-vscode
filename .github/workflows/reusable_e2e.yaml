@@ -67,8 +67,9 @@ jobs:
         with:
           name: mirrord-artifacts
       - name: add downloaded mirrord to path
-        if: ${{ inputs.mirrord_release_branch }}
+        # if: ${{ inputs.mirrord_release_branch }}
         run: |
+          cp ls mirrord
           chmod u+x mirrord
           echo "${GITHUB_WORKSPACE}" >> "$GITHUB_PATH"
 
