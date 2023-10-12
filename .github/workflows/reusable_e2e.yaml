@@ -71,6 +71,7 @@ jobs:
         run: |
           cp $(which ls) mirrord
           chmod u+x mirrord
+          mkdir -p "$HOME/.local/bin"
           cp mirrord "$HOME/.local/bin/mirrord"
           echo "${GITHUB_WORKSPACE}" >> "$GITHUB_PATH"
 
