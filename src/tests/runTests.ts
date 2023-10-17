@@ -8,7 +8,7 @@ import { ExTester, ReleaseQuality } from 'vscode-extension-tester';
 async function main(): Promise<void> {
     const version = "latest";
     const testPath = path.join(__dirname, 'e2e.js');
-    const storageFolder = path.join(__dirname, '..', 'storage');
+    const storageFolder = "/tmp/tmp-resources";
     const extFolder = path.join(__dirname, '..', 'extensions');
     
     // required extension for debugging a python file
