@@ -108,7 +108,7 @@ describe("mirrord sample flow test", function () {
         await inputBox.selectQuickPick(podToSelect!);
     });
 
-    it("wait for process to write to terminal", async function () {
+    it("wait for breakpoint to be hit", async function () {
         const debugToolbar = await DebugToolbar.create(2 * defaultTimeout);
         const panel = new BottomBarPanel();
         const textEditor = new TextEditor();
@@ -135,6 +135,7 @@ describe("mirrord sample flow test", function () {
             return text.includes("GET: Request completed");
         }, defaultTimeout, "terminal text not found -- timed out");
 
+        await debugToolbar.waitForBreakPoint();
     });
 });
 
