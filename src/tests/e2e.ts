@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { join } from "path";
-import { VSBrowser, StatusBar, ActivityBar, DebugView, InputBox, DebugToolbar, BottomBarPanel, EditorView } from "vscode-extension-tester";
+import { VSBrowser, StatusBar, ActivityBar, DebugView, InputBox, DebugToolbar, BottomBarPanel, EditorView, TextEditor } from "vscode-extension-tester";
 import get from "axios";
 
 const kubeService = process.env.KUBE_SERVICE;
@@ -111,6 +111,7 @@ describe("mirrord sample flow test", function () {
     it("wait for process to write to terminal", async function () {
         const debugToolbar = await DebugToolbar.create(2 * defaultTimeout);
         const panel = new BottomBarPanel();
+        const textEditor = new TextEditor();
         await browser.driver.wait(async () => {
             return await debugToolbar.isDisplayed();
         }, 2 * defaultTimeout, "debug toolbar not found -- timed out");
@@ -122,6 +123,10 @@ describe("mirrord sample flow test", function () {
             const text = await terminal.getText();
             return await terminal.isDisplayed() && text.includes("Press CTRL+C to quit");
         }, 2 * defaultTimeout, "terminal text not found -- timed out");
+
+
+        const result = await textEditor.toggleBreakpoint(9);
+        expect(result).to.be.true;
 
         await sendTrafficToPod();
 
