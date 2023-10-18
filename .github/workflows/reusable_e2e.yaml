@@ -54,7 +54,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: latest
+          node-version: 18.15.0
       - name: Install dependencies
         run: |
           npm install
@@ -107,10 +107,13 @@ jobs:
           ffmpeg -loglevel panic -y -framerate 30 -f x11grab -video_size 1920x1080 -i :99 out.webm
           wait -n
 
+      - name: list files  
+        run: ls -la storage
       # the video starts at around ~2 minutes, before that you will see a black screen
       - name: Upload video
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: video
-          path: out.webm
+          path: 
+            out.webm            
