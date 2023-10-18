@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { join } from "path";
 import { VSBrowser, StatusBar, ActivityBar, DebugView, InputBox, DebugToolbar, BottomBarPanel, EditorView, TextEditor } from "vscode-extension-tester";
 import get from "axios";
+import exp from "constants";
 
 const kubeService = process.env.KUBE_SERVICE;
 const podToSelect = process.env.POD_TO_SELECT;
@@ -135,7 +136,10 @@ describe("mirrord sample flow test", function () {
             return text.includes("GET: Request completed");
         }, defaultTimeout, "terminal text not found -- timed out");
 
-        await debugToolbar.waitForBreakPoint();
+        const breakpoint = await textEditor.getPausedBreakpoint();
+        expect(breakpoint).to.not.be.undefined;
+        const lineNumber = await breakpoint?.getLineNumber();
+        expect(lineNumber).to.equal(9);
     });
 });
 
