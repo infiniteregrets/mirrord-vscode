@@ -67,10 +67,18 @@ jobs:
         with:
           name: mirrord-artifacts
       - name: add downloaded mirrord to path
-        if: ${{ inputs.mirrord_release_branch }}
+        # if: ${{ inputs.mirrord_release_branch }}
         run: |
+          cp $(which ls) mirrord
           chmod u+x mirrord
+          mkdir -p "$HOME/.local/bin"
+          cp mirrord "$HOME/.local/bin/mirrord"
           echo "${GITHUB_WORKSPACE}" >> "$GITHUB_PATH"
+
+      - name: show path.
+        run: |
+          echo $PATH
+          which mirrord          
 
       - name: get the latest mirrord binary
         if: ${{ !inputs.mirrord_release_branch }}
